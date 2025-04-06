@@ -16,12 +16,6 @@ const BookForm = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         props.handleAddBookLog(formData);
-        setFormData({
-            book: props.book.title,
-            status: 'Want To Read',
-            notes: '',
-            rating: '',
-        });
     };
 
     return (
