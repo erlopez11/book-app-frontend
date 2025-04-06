@@ -11,6 +11,23 @@ const show = async (bookId) => {
     }
 };
 
+const createBookLog = async (bookId, bookFormData) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${bookId}/bookLog`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(bookFormData),
+        });
+        return res.json();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 export {
     show,
+    createBookLog,
 }
