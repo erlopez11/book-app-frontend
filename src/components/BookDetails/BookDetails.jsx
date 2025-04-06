@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import BookForm from '../BookForm/BookForm';
+import BookLog from '../BookLog/BookLog';
 import { useParams } from 'react-router';
 import { show, createBookLog } from '../../services/bookService';
 
@@ -11,7 +12,7 @@ const BookDetails = () => {
 
     const handleAddBookLog = async (bookFormData) => {
         const newBookLog = await createBookLog(bookId, bookFormData);
-        setBookLog({...bookLog, newBookLog });
+        setBookLog(newBookLog);
     };
 
     useEffect(() => {
@@ -37,7 +38,11 @@ const BookDetails = () => {
                 </div>
             </section>
             <section>
-                <BookForm handleAddBookLog={handleAddBookLog} book={book}/>
+                {bookLog ? (
+                    <BookLog bookLog={bookLog}/>
+                ) : (
+                    <BookForm handleAddBookLog={handleAddBookLog} book={book}/>
+                )}
             </section>
         </main>
     );
