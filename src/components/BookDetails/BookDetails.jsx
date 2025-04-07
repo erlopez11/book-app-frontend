@@ -8,7 +8,7 @@ import { show, createBookLog, deleteBookLog, updateBookLog } from '../../service
 const BookDetails = () => {
     const [book, setBook] = useState(null);
     const [bookLog, setBookLog] = useState(null);
-    const { bookId } = useParams();
+    const { bookId, bookLogId } = useParams();
     const navigate = useNavigate();
 
 
@@ -51,7 +51,7 @@ const BookDetails = () => {
                 </div>
             </section>
             <section>
-                {bookLog ? (
+                {bookLog && !bookLogId ? (
                     <BookLog
                         bookLog={bookLog}
                         handleDeleteBookLog={handleDeleteBookLog}
