@@ -4,6 +4,15 @@ import BookLog from '../BookLog/BookLog';
 import { useParams, useNavigate } from 'react-router';
 import { show, createBookLog, deleteBookLog, updateBookLog } from '../../services/bookService';
 
+const removeHTMLTags = (string) => {
+    try {
+        let parsedString = new DOMParser().parseFromString(string, "text/html");
+         return parsedString.body.textContent;
+    } catch (error) {
+        console.error(error);
+        return string;
+    }
+};
 
 const BookDetails = () => {
     const [book, setBook] = useState(null);
@@ -47,7 +56,7 @@ const BookDetails = () => {
                 <p>ISBN: {book.isbn}</p>
                 <p>Page Count: {book.numberOfPages}</p>
                 <div>
-                    {book.description}
+                    {removeHTMLTags(book.description)}
                 </div>
             </section>
             <section>
