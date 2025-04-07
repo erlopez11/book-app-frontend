@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router';
+import { showBookLog } from '../../services/bookService';
 
 const BookForm = (props) => {
-
+    const { bookId, bookLogId } = useParams();
     const [formData, setFormData] = useState({
         book: props.book.title,
         status: '',
         notes: '',
         rating: '',
     });
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -15,8 +18,22 @@ const BookForm = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.handleAddBookLog(formData);
+
+        if (bookId && bookLogId) {
+            props.handleUpdateBookLog(bookId, bookLogId, formData);
+            navigate(`/books/${bookId}`);
+        } else {
+            props.handleAddBookLog(formData);
+        }
     };
+
+    useEffect(()=> {
+        const fetchBookLog = async () => {
+            const bookLogData = await showBookLog(bookId, bookLogId);
+            setFormData(bookLogData);
+        };
+        if (bookId && bookLogId) fetchBookLog();
+    }, [bookId, bookLogId]);
 
     return (
         <>
@@ -70,7 +87,11 @@ const BookForm = (props) => {
                         onChange={handleChange}
                     />
                 </div>
-                <button type='submit'>Add {props.book.title}</button>
+                {bookLogId ? (
+                    <button type='submit'>Edit Log</button>
+                ) : (
+                    <button type='submit'>Add {props.book.title}</button>
+                )}
             </form>
         </>
     );
