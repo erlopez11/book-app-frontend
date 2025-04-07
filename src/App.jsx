@@ -5,6 +5,8 @@ import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
+import BookDetails from './components/BookDetails/BookDetails';
+
 import { UserContext } from './contexts/UserContext';
 
 
@@ -15,18 +17,33 @@ function App() {
     <>
       <NavBar />
       <Routes>
-        <Route 
+        <Route
           path='/'
-          element={user ? <Dashboard /> : <Landing /> }
+          element={user ? <Dashboard /> : <Landing />}
         />
-        <Route 
-          path='/sign-up'
-          element={<SignUpForm />}
-        />
-        <Route 
-          path='/sign-in'
-          element={<SignInForm />}
-        />
+        {user ? (
+          <>
+            <Route 
+              path="/books/:bookId"
+              element={<BookDetails />}
+            />
+            <Route 
+              path="/books/:bookId/bookLog/:bookLogId/edit"
+              element={<BookDetails />}
+            />
+          </>
+        ) : (
+          <>
+            <Route
+              path='/sign-up'
+              element={<SignUpForm />}
+            />
+            <Route
+              path='/sign-in'
+              element={<SignInForm />}
+            />
+          </>
+        )}
       </Routes>
     </>
   )
