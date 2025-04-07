@@ -42,6 +42,7 @@ const BookForm = (props) => {
                         value={formData.status}
                         onChange={handleChange}
                     >
+                        <option>Select Reading Status</option>
                         <option value='want to read'>Want To Read</option>
                         <option value='currently reading'>Currently Reading</option>
                         <option value='read'>Read</option>
