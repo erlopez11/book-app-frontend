@@ -54,9 +54,26 @@ const deleteBookLog = async (bookId, bookLogId) => {
     }
 };
 
+const updateBookLog = async (bookId, bookLogId, bookFormData) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${bookId}/bookLog/${bookLogId}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(bookFormData),
+        });
+        return res.json();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 export {
     show,
     createBookLog,
     deleteBookLog,
     showBookLog,
+    updateBookLog,
 }
