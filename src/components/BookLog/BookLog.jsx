@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 
-const BookLog = ({bookLog: {book, status, notes, rating}}) => {
+const BookLog = ({bookLog: {book, status, notes, rating}, handleDeleteBookLog}) => {
     return (
         <section>
             <h2>{book} Log </h2>
@@ -9,8 +9,7 @@ const BookLog = ({bookLog: {book, status, notes, rating}}) => {
             <p>Rating: {rating}</p>
             {/* TODO: Add to= with link to the edit route for the form */}
             <Link>Edit</Link> 
-            {/* TODO: add onCLick for delete btn with delete fn */}
-            <button>Delete</button>
+            <button onClick={handleDeleteBookLog}>Delete</button>
         </section>
     );
 };
