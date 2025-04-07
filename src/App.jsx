@@ -27,6 +27,10 @@ function App() {
               path="/books/:bookId"
               element={<BookDetails />}
             />
+            <Route 
+              path="/books/:bookId/bookLog/:bookLogId/edit"
+              element={<BookDetails />}
+            />
           </>
         ) : (
           <>
