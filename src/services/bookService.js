@@ -27,6 +27,19 @@ const createBookLog = async (bookId, bookFormData) => {
     }
 };
 
+const showBookLog = async (bookId, bookLogId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${bookId}/bookLog/${bookLogId}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            }
+        });
+        return res.json();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 const deleteBookLog = async (bookId, bookLogId) => {
     try {
         const res = await fetch(`${BASE_URL}/${bookId}/bookLog/${bookLogId}`, {
@@ -45,4 +58,5 @@ export {
     show,
     createBookLog,
     deleteBookLog,
+    showBookLog,
 }
