@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import BookForm from '../BookForm/BookForm';
 import BookLog from '../BookLog/BookLog';
 import { useParams, useNavigate } from 'react-router';
-import { show, createBookLog, deleteBookLog } from '../../services/bookService';
+import { show, createBookLog, deleteBookLog, updateBookLog } from '../../services/bookService';
 
 
 const BookDetails = () => {
     const [book, setBook] = useState(null);
-    const [bookLog, setBookLog] =useState(null);
+    const [bookLog, setBookLog] = useState(null);
     const { bookId } = useParams();
     const navigate = useNavigate();
 
@@ -21,7 +21,13 @@ const BookDetails = () => {
         const deletedBookLog = await deleteBookLog(bookId, bookLog._id);
         setBookLog(null);
     };
- 
+
+    const handleUpdateBookLog = async (bookId, bookLogId, bookFormData) => {
+        const updatedBookLog = await updateBookLog(bookId, bookLogId, bookFormData);
+        setBookLog(updatedBookLog);
+        navigate(`/books/${bookId}`);
+    }
+
     useEffect(() => {
         const fetchBook = async () => {
             const bookData = await show(bookId);
@@ -46,9 +52,13 @@ const BookDetails = () => {
             </section>
             <section>
                 {bookLog ? (
-                    <BookLog bookLog={bookLog} handleDeleteBookLog={handleDeleteBookLog}/>
+                    <BookLog
+                        bookLog={bookLog}
+                        handleDeleteBookLog={handleDeleteBookLog}
+                        bookId = {bookId}
+                    />
                 ) : (
-                    <BookForm handleAddBookLog={handleAddBookLog} book={book}/>
+                    <BookForm handleAddBookLog={handleAddBookLog} handleUpdateBookLog={handleUpdateBookLog} book={book} />
                 )}
             </section>
         </main>
