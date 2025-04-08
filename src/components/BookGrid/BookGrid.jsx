@@ -6,11 +6,11 @@ const BookGrid = () => {
   const [books, setBooks] = useState([]);
   const { user } = useContext(UserContext);
 
-  if (!user?.username) {
-    return;
-  }
-
   useEffect(() => {
+    if (!user?.username) {
+      return;
+    }
+
     fetch(`/books`)
       .then((res) => res.json())
       .then((data) => setBooks(data))
