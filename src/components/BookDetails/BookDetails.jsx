@@ -17,6 +17,7 @@ const removeHTMLTags = (string) => {
 const BookDetails = () => {
     const [book, setBook] = useState(null);
     const [bookLog, setBookLog] = useState(null);
+    const [message, setMessage] = useState('');
     const { bookId, bookLogId } = useParams();
     const navigate = useNavigate();
 
@@ -24,11 +25,13 @@ const BookDetails = () => {
     const handleAddBookLog = async (bookFormData) => {
         const newBookLog = await createBookLog(bookId, bookFormData);
         setBookLog(newBookLog);
+        setMessage('');
     };
 
     const handleDeleteBookLog = async () => {
         const deletedBookLog = await deleteBookLog(bookId, bookLog._id);
         setBookLog(null);
+        setMessage('Delete Successful!');
     };
 
     const handleUpdateBookLog = async (bookId, bookLogId, bookFormData) => {
@@ -60,6 +63,7 @@ const BookDetails = () => {
                 </div>
             </section>
             <section>
+                <p>{message}</p>
                 {bookLog && !bookLogId ? (
                     <BookLog
                         bookLog={bookLog}
