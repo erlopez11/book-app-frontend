@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import BookCard from "../BookCard/BookCard";
 import { UserContext } from "../../contexts/UserContext";
+import { getAllBooks } from "../../services/bookService";
 
 const BookGrid = () => {
   const [books, setBooks] = useState([]);
@@ -11,8 +12,7 @@ const BookGrid = () => {
       return;
     }
 
-    fetch(`/books`)
-      .then((res) => res.json())
+    getAllBooks()
       .then((data) => setBooks(data))
       .catch((err) => console.error("Error fetching books:", err));
   }, [user]);
