@@ -6,9 +6,10 @@ const BookForm = (props) => {
     const { bookId, bookLogId } = useParams();
     const [formData, setFormData] = useState({
         book: props.book.title,
-        status: '',
+        status: 'want to read',
         notes: '',
-        rating: '',
+        rating: 'no rating',
+        collections: 'My Collections',
     });
     const navigate = useNavigate();
 
@@ -42,7 +43,7 @@ const BookForm = (props) => {
                 <div>
                     <label htmlFor='book'>Book:</label>
                     <input
-                        required
+                        readOnly
                         type='text'
                         name='book'
                         id='book'
@@ -69,7 +70,6 @@ const BookForm = (props) => {
                 <div>
                     <label htmlFor='notes'>Notes:</label>
                     <textarea
-                        required
                         name='notes'
                         id='notes'
                         value={formData.notes}
@@ -78,14 +78,34 @@ const BookForm = (props) => {
                 </div>
                 <div>
                     <label htmlFor='rating'>Rating:</label>
-                    <input
+                    <select
                         required
-                        type='text'
                         name='rating'
                         id='rating'
                         value={formData.rating}
                         onChange={handleChange}
-                    />
+                    >
+                        <option value="no rating">No Rating</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+
+                    </select>
+                </div>
+                <div>
+                    <label htmlFor='collections'>Select Collection</label>
+                    <select
+                        required
+                        name='collections'
+                        id='collections'
+                        value={formData.collections}
+                        onChange={handleChange}
+                    >
+                        <option value='My Collections'>My Collections</option>
+
+                    </select>
                 </div>
                 {bookLogId ? (
                     <button type='submit'>Edit Log</button>
