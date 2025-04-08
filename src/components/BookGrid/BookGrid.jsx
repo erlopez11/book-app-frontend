@@ -5,6 +5,11 @@ import { UserContext } from "../../contexts/UserContext";
 const BookGrid = () => {
   const [books, setBooks] = useState([]);
   const { user } = useContext(UserContext);
+
+  if (!user?.username) {
+    return;
+  }
+
   useEffect(() => {
     fetch(`/books`)
       .then((res) => res.json())
