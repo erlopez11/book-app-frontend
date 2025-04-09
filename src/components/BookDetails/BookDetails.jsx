@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import BookForm from '../BookForm/BookForm';
 import BookLog from '../BookLog/BookLog';
 import { useParams, useNavigate } from 'react-router';
-import { show, createBookLog, deleteBookLog, updateBookLog } from '../../services/bookService';
+import { showBook, createBookLog, deleteBookLog, updateBookLog } from '../../services/bookService';
 
 const removeHTMLTags = (string) => {
     try {
@@ -17,6 +17,7 @@ const removeHTMLTags = (string) => {
 const BookDetails = () => {
     const [book, setBook] = useState(null);
     const [bookLog, setBookLog] = useState(null);
+    const[message, setMessage] = useState('');
     const { bookId, bookLogId } = useParams();
     const navigate = useNavigate();
 
@@ -24,11 +25,13 @@ const BookDetails = () => {
     const handleAddBookLog = async (bookFormData) => {
         const newBookLog = await createBookLog(bookId, bookFormData);
         setBookLog(newBookLog);
+        setMessage('');
     };
 
     const handleDeleteBookLog = async () => {
         const deletedBookLog = await deleteBookLog(bookId, bookLog._id);
         setBookLog(null);
+        setMessage('Delete Successful!');
     };
 
     const handleUpdateBookLog = async (bookId, bookLogId, bookFormData) => {
@@ -39,7 +42,7 @@ const BookDetails = () => {
 
     useEffect(() => {
         const fetchBook = async () => {
-            const bookData = await show(bookId);
+            const bookData = await showBook(bookId);
             setBook(bookData);
         };
         fetchBook();
@@ -50,16 +53,17 @@ const BookDetails = () => {
     return (
         <main>
             <section>
-                <img src={book.thumbnailUrl} />
-                <h1>{book.title}</h1>
-                <h2>{book.author}</h2>
-                <p>ISBN: {book.isbn}</p>
-                <p>Page Count: {book.numberOfPages}</p>
+                <img src={book[0].thumbnailUrl} />
+                <h1>{book[0].title}</h1>
+                <h2>{book[0].author}</h2>
+                <p>ISBN: {book[0].isbn}</p>
+                <p>Page Count: {book[0].numberOfPages}</p>
                 <div>
-                    {removeHTMLTags(book.description)}
+                    {removeHTMLTags(book[0].description)}
                 </div>
             </section>
             <section>
+                <p>{message}</p>
                 {bookLog && !bookLogId ? (
                     <BookLog
                         bookLog={bookLog}
