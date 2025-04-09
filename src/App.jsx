@@ -10,7 +10,7 @@ import Collections from './components/Collections/Collections';
 import CollectionDetails from './components/CollectionDetails/CollectionDetails';
 import CollectionForm from './components/CollectionForm/CollectionForm';
 
-import { indexCollection, deleteCollection, updateCollection } from './services/collectionService';
+import { createCollection, indexCollection, deleteCollection, updateCollection } from './services/collectionService';
 
 import { UserContext } from './contexts/UserContext';
 
@@ -20,6 +20,12 @@ function App() {
   const navigate = useNavigate();
 
   const [collections, setCollections] = useState([]);
+
+  const handleAddCollection = async (collectionFormData) => {
+    const newCollection = await createCollection(collectionFormData);
+    setCollections([...collections, newCollection]);
+    navigate('/collections');
+  };
 
   const handleDeleteCollection = async (collectionId) => {
     const deletedCollectionId = collectionId;
@@ -66,6 +72,10 @@ function App() {
             <Route
               path="/collections"
               element={<Collections collections={collections} />}
+            />
+            <Route
+              path="/collections/new"
+              element={<CollectionForm handleAddCollection={handleAddCollection}/>}
             />
             <Route
               path="/collections/:collectionId"
