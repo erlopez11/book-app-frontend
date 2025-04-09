@@ -18,7 +18,7 @@ const CollectionForm = (props) => {
         if (collectionId) {
             props.handleUpdateCollection(collectionId, formData);
         } else {
-            // TODO: Add handleAddCollection!
+            props.handleAddCollection(formData);
         };
 
         setFormData({
