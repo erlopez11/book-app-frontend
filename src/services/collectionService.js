@@ -40,8 +40,25 @@ const deleteCollection = async (collectionId) => {
     }
 };
 
+const updateCollection = async (collectionId, collectionFormData) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${collectionId}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(collectionFormData),
+        });
+        return res.json();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 export {
     showCollection,
     indexCollection,
     deleteCollection,
+    updateCollection,
 }
