@@ -5,10 +5,10 @@ import { showBookLog } from '../../services/bookService';
 const BookForm = (props) => {
     const { bookId, bookLogId } = useParams();
     const [formData, setFormData] = useState({
-        book: props.book.title,
+        book: props.book[0].title,
         status: '',
         notes: '',
-        rating: '',
+        rating: 'no rating',
     });
     const navigate = useNavigate();
 
@@ -42,7 +42,7 @@ const BookForm = (props) => {
                 <div>
                     <label htmlFor='book'>Book:</label>
                     <input
-                        required
+                        readOnly
                         type='text'
                         name='book'
                         id='book'
@@ -69,7 +69,6 @@ const BookForm = (props) => {
                 <div>
                     <label htmlFor='notes'>Notes:</label>
                     <textarea
-                        required
                         name='notes'
                         id='notes'
                         value={formData.notes}
@@ -78,14 +77,21 @@ const BookForm = (props) => {
                 </div>
                 <div>
                     <label htmlFor='rating'>Rating:</label>
-                    <input
+                    <select
                         required
-                        type='text'
                         name='rating'
                         id='rating'
                         value={formData.rating}
                         onChange={handleChange}
-                    />
+                    >
+                        <option value="no rating">No Rating</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+
+                    </select>
                 </div>
                 {bookLogId ? (
                     <button type='submit'>Edit Log</button>
