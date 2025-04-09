@@ -1,5 +1,21 @@
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/collections`;
 
+const createCollection = async (collectionFormData) => {
+    try {
+        const res = await fetch(BASE_URL, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(collectionFormData),
+        });
+        return res.json();
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 const indexCollection = async () => {
     try {
         const res = await fetch(BASE_URL, {
@@ -57,6 +73,7 @@ const updateCollection = async (collectionId, collectionFormData) => {
 };
 
 export {
+    createCollection,
     showCollection,
     indexCollection,
     deleteCollection,
