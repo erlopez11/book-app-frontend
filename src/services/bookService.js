@@ -11,7 +11,7 @@ const getAllBooks = async () => {
   }
 };
 
-const show = async (bookId) => {
+const showBook = async (bookId) => {
   try {
     const res = await fetch(`${BASE_URL}/${bookId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -82,7 +82,7 @@ const updateBookLog = async (bookId, bookLogId, bookFormData) => {
 };
 
 export {
-  show,
+  showBook,
   createBookLog,
   deleteBookLog,
   showBookLog,
