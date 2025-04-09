@@ -4,7 +4,7 @@ import NavBar from './components/NavBar/NavBar';
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
-import Dashboard from './components/Dashboard/Dashboard';
+import BookGrid from './components/BookGrid/BookGrid';
 import BookDetails from './components/BookDetails/BookDetails';
 
 import { UserContext } from './contexts/UserContext';
@@ -19,7 +19,7 @@ function App() {
       <Routes>
         <Route
           path='/'
-          element={user ? <Dashboard /> : <Landing />}
+          element={user ? <BookGrid /> : <Landing />}
         />
         {user ? (
           <>
