@@ -8,8 +8,9 @@ import Dashboard from './components/Dashboard/Dashboard';
 import BookDetails from './components/BookDetails/BookDetails';
 import Collections from './components/Collections/Collections';
 import CollectionDetails from './components/CollectionDetails/CollectionDetails';
+import CollectionForm from './components/CollectionForm/CollectionForm';
 
-import { indexCollection, deleteCollection } from './services/collectionService';
+import { indexCollection, deleteCollection, updateCollection } from './services/collectionService';
 
 import { UserContext } from './contexts/UserContext';
 
@@ -26,6 +27,14 @@ function App() {
     setCollections(collections.filter((collection) => collection._id !== deletedCollectionId));
     navigate('/collections');
   }
+
+  const handleUpdateCollection = async (collectionId, collectionFormData) => {
+    const updatedCollection = await updateCollection(collectionId, collectionFormData);
+    setCollections(collections.map((collection) => (
+      collectionId === collection._id ? updatedCollection : collection
+    )));
+    navigate(`/collections/${collectionId}`);
+  };
 
   useEffect(() => {
     const fetchAllCollections = async () => {
@@ -61,6 +70,10 @@ function App() {
             <Route
               path="/collections/:collectionId"
               element={<CollectionDetails handleDeleteCollection={handleDeleteCollection} />}
+            />
+            <Route
+              path="/collections/:collectionId/edit"
+              element={<CollectionForm handleUpdateCollection={handleUpdateCollection}/>}
             />
           </>
         ) : (
