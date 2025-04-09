@@ -22,9 +22,9 @@ const CollectionDetails = (props) => {
             <header>
                 <h1>{collection.title}</h1>
                 <p>{collection.description}</p>
-                {/* TODO: ADD to= for edit LINK */}
-                <Link>Edit</Link>
-                {/* TODO: ADD onClick to delete */}
+            
+                <Link to={`/collections/${collectionId}/edit`}>Edit</Link>
+
                 <button onClick={() => props.handleDeleteCollection(collectionId)}>Delete</button>
 
             </header>
