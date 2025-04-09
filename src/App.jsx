@@ -1,17 +1,40 @@
-import { useContext } from 'react';
-import { Routes, Route } from 'react-router';
+import { useContext, useState, useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router';
 import NavBar from './components/NavBar/NavBar';
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
 import BookDetails from './components/BookDetails/BookDetails';
+import Collections from './components/Collections/Collections';
+import CollectionDetails from './components/CollectionDetails/CollectionDetails';
+
+import { indexCollection, deleteCollection } from './services/collectionService';
 
 import { UserContext } from './contexts/UserContext';
 
 
 function App() {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const [collections, setCollections] = useState([]);
+
+  const handleDeleteCollection = async (collectionId) => {
+    const deletedCollectionId = collectionId;
+    const deletedCollection = await deleteCollection(collectionId)
+    setCollections(collections.filter((collection) => collection._id !== deletedCollectionId));
+    navigate('/collections');
+  }
+
+  useEffect(() => {
+    const fetchAllCollections = async () => {
+        const collectionsData = await indexCollection();
+        setCollections(collectionsData);
+    };
+    if (user) fetchAllCollections();
+}, [user]);
+
 
   return (
     <>
@@ -23,13 +46,21 @@ function App() {
         />
         {user ? (
           <>
-            <Route 
+            <Route
               path="/books/:bookId"
               element={<BookDetails />}
             />
-            <Route 
+            <Route
               path="/books/:bookId/bookLog/:bookLogId/edit"
               element={<BookDetails />}
+            />
+            <Route
+              path="/collections"
+              element={<Collections collections={collections} />}
+            />
+            <Route
+              path="/collections/:collectionId"
+              element={<CollectionDetails handleDeleteCollection={handleDeleteCollection} />}
             />
           </>
         ) : (
