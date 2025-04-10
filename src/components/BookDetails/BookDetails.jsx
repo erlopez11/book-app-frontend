@@ -3,7 +3,7 @@ import BookForm from '../BookForm/BookForm';
 import BookLog from '../BookLog/BookLog';
 import { useParams, useNavigate } from 'react-router';
 import { showBook, createBookLog, deleteBookLog, updateBookLog } from '../../services/bookService';
-import { indexCollection } from '../../services/collectionService';
+import { getCollections } from '../../services/collectionService';
 
 const removeHTMLTags = (string) => {
     try {
@@ -47,7 +47,7 @@ const BookDetails = () => {
             setBook(bookData);
         };
         const fetchCollections = async () => {
-            const collectionData = await indexCollection();
+            const collectionData = await getCollections();
             setCollection(collectionData);
         };
 

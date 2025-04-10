@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
-import { showCollection } from '../../services/collectionService';
+import { getCollection } from '../../services/collectionService';
 import BookCard from '../BookCard/BookCard';
 
 const CollectionDetails = (props) => {
@@ -10,7 +10,7 @@ const CollectionDetails = (props) => {
 
     useEffect(() => {
         const fetchCollection = async () => {
-            const collectionData = await showCollection(collectionId);
+            const collectionData = await getCollection(collectionId);
             setCollection(collectionData);
             const books = collectionData.users[0].bookLog;
             const filteredBooks = books.filter((book) => (collectionData.title === book.collections))

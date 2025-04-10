@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
-import { showCollection } from '../../services/collectionService';
+import { getCollection } from '../../services/collectionService';
 
 const CollectionForm = (props) => {
     const { collectionId } = useParams();
@@ -29,7 +29,7 @@ const CollectionForm = (props) => {
 
     useEffect(() => {
         const fetchCollection = async () => {
-            const collectionData = await showCollection(collectionId);
+            const collectionData = await getCollection(collectionId);
             setFormData(collectionData);
         };
         if (collectionId) fetchCollection();
