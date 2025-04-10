@@ -55,33 +55,40 @@ const BookGrid = () => {
         <div className="error">Error: {error}</div>
       ) : (
         <>
-          <div className="book-grid">
-            {books.map((book) => (
-              <div key={book.id} className="book-card-wrapper">
-                <BookCard
-                  title={book.title}
-                  author={book.author}
-                  thumbnailUrl={book.thumbnailUrl}
-                />
+          {books.length > 0 ? (
+            <>
+              <div className="book-grid">
+                {books.map((book) => (
+                  <div key={book.id} className="book-card-wrapper">
+                    <BookCard
+                      title={book.title}
+                      author={book.author}
+                      thumbnailUrl={book.thumbnailUrl}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-
-          <div className="pagination">
-            <button
-              className="pagination-button"
-              onClick={handlePrevious}
-              disabled={startIndex === 0}
-            >
-              Previous
-            </button>
-            <span className="page-info">
-              Page {Math.floor(startIndex / maxResults) + 1}
-            </span>
-            <button className="pagination-button" onClick={handleNext}>
-              Next
-            </button>
-          </div>
+              <div className="pagination">
+                <button
+                  className="pagination-button"
+                  onClick={handlePrevious}
+                  disabled={startIndex === 0}
+                >
+                  Previous
+                </button>
+                <span className="page-info">
+                  Page {Math.floor(startIndex / maxResults) + 1}
+                </span>
+                <button className="pagination-button" onClick={handleNext}>
+                  Next
+                </button>
+              </div>
+            </>
+          ) : (
+            <div>
+              <h1 style={{ color: "black" }}>No books found :(</h1>
+            </div>
+          )}
         </>
       )}
     </div>
