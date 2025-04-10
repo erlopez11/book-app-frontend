@@ -6,13 +6,14 @@ import { getCollections } from "../../services/collectionService";
 const BookForm = (props) => {
     const { bookId, bookLogId } = useParams();
     const [formData, setFormData] = useState({
+        id: props.book.id,
         book: props.book.title,
         author: props.book.author,
         thumbnailUrl: props.book.thumbnailUrl,
         status: '',
         notes: '',
         rating: 'no rating',
-        collections: '',
+        collection: '',
     });
     const [collections, setCollections] = useState([]);
     const navigate = useNavigate();
@@ -56,6 +57,16 @@ const BookForm = (props) => {
                     <input
                         readOnly
                         type='hidden'
+                        name='id'
+                        id='id'
+                        value={formData.id}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div>
+                    <input
+                        readOnly
+                        type='hidden'
                         name='book'
                         id='book'
                         value={formData.book}
@@ -93,7 +104,7 @@ const BookForm = (props) => {
                     >
                         <option>Select Collection</option>
                         {collections.map((collection) => (
-                            <option key={collection._id} value={collection.id}>
+                            <option key={collection._id} value={collection._id}>
                                 {collection.title}
                             </option>
                         ))}
