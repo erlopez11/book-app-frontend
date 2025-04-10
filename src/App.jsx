@@ -4,12 +4,13 @@ import NavBar from './components/NavBar/NavBar';
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
-import Dashboard from './components/Dashboard/Dashboard';
+import BookGrid from './components/BookGrid/BookGrid';
 import BookDetails from './components/BookDetails/BookDetails';
+import Collections from './components/Collections/Collections';
 import CollectionDetails from './components/CollectionDetails/CollectionDetails';
 import CollectionForm from './components/CollectionForm/CollectionForm';
 
-import { createCollection, indexCollection, deleteCollection, updateCollection } from './services/collectionService';
+import { createCollection, getCollections, deleteCollection, updateCollection } from './services/collectionService';
 
 import { UserContext } from './contexts/UserContext';
 
@@ -43,7 +44,7 @@ function App() {
 
   useEffect(() => {
     const fetchAllCollections = async () => {
-        const collectionsData = await indexCollection();
+        const collectionsData = await getCollections();
         setCollections(collectionsData);
     };
     if (user) fetchAllCollections();
@@ -56,7 +57,7 @@ function App() {
       <Routes>
         <Route
           path='/'
-          element={user ? <Dashboard /> : <Landing />}
+          element={user ? <BookGrid /> : <Landing />}
         />
         {user ? (
           <>
@@ -79,6 +80,14 @@ function App() {
             <Route
               path="/collections/:collectionId/edit"
               element={<CollectionForm handleUpdateCollection={handleUpdateCollection}/>}
+            />
+            <Route
+              path="/collections"
+              element={<Collections />}
+            />
+            <Route
+              path="/collections/:collectionId"
+              element={<BookDetails />}
             />
           </>
         ) : (
