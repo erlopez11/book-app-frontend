@@ -3,53 +3,50 @@ import BookForm from "../BookForm/BookForm";
 import BookLog from "../BookLog/BookLog";
 import { useParams, useNavigate } from "react-router";
 import {
-  show,
-  createBookLog,
-  deleteBookLog,
-  updateBookLog,
+    show,
+    createBookLog,
+    deleteBookLog,
+    updateBookLog,
 } from "../../services/bookService";
+import { getCollections } from '../../services/collectionService';
 
 const removeHTMLTags = (string) => {
-  try {
-    let parsedString = new DOMParser().parseFromString(string, "text/html");
-    return parsedString.body.textContent;
-  } catch (error) {
-    console.error(error);
-    return string;
-  }
+    try {
+        let parsedString = new DOMParser().parseFromString(string, "text/html");
+        return parsedString.body.textContent;
+    } catch (error) {
+        console.error(error);
+        return string;
+    }
 };
 
 const BookDetails = () => {
-  const [book, setBook] = useState(null);
-  const [bookLog, setBookLog] = useState(null);
-  const { bookId, bookLogId } = useParams();
-  const navigate = useNavigate();
     const [book, setBook] = useState(null);
     const [bookLog, setBookLog] = useState(null);
     const [collections, setCollection] = useState([]);
-    const[message, setMessage] = useState('');
     const { bookId, bookLogId } = useParams();
     const navigate = useNavigate();
 
-  const handleAddBookLog = async (bookFormData) => {
-    const newBookLog = await createBookLog(bookId, bookFormData);
-    setBookLog(newBookLog);
-  };
 
-  const handleDeleteBookLog = async () => {
-    const deletedBookLog = await deleteBookLog(bookId, bookLog._id);
-    setBookLog(null);
-  };
+    const handleAddBookLog = async (bookFormData) => {
+        const newBookLog = await createBookLog(bookId, bookFormData);
+        setBookLog(newBookLog);
+    };
 
-  const handleUpdateBookLog = async (bookId, bookLogId, bookFormData) => {
-    const updatedBookLog = await updateBookLog(bookId, bookLogId, bookFormData);
-    setBookLog(updatedBookLog);
-    navigate(`/books/${bookId}`);
-  };
+    const handleDeleteBookLog = async () => {
+        const deletedBookLog = await deleteBookLog(bookId, bookLog._id);
+        setBookLog(null);
+    };
+
+    const handleUpdateBookLog = async (bookId, bookLogId, bookFormData) => {
+        const updatedBookLog = await updateBookLog(bookId, bookLogId, bookFormData);
+        setBookLog(updatedBookLog);
+        navigate(`/books/${bookId}`);
+    };
 
     useEffect(() => {
         const fetchBook = async () => {
-            const bookData = await showBook(bookId);
+            const bookData = await show(bookId);
             setBook(bookData);
         };
         const fetchCollections = async () => {
@@ -61,7 +58,7 @@ const BookDetails = () => {
         fetchCollections();
     }, [bookId]);
 
-  if (!book) return <main>Loading...</main>;
+    if (!book) return <main>Loading...</main>;
 
     return (
         <main>
@@ -69,19 +66,18 @@ const BookDetails = () => {
                 <img src={book.thumbnailUrl} />
                 <h1>{book.title}</h1>
                 <h2>{book.author}</h2>
-                <p>ISBN: {book.isbn}</p>
+                <p>ID: {book.id}</p>
                 <p>Page Count: {book.numberOfPages}</p>
                 <div>
                     {removeHTMLTags(book.description)}
                 </div>
             </section>
             <section>
-                <p>{message}</p>
                 {bookLog && !bookLogId ? (
                     <BookLog
                         bookLog={bookLog}
                         handleDeleteBookLog={handleDeleteBookLog}
-                        bookId = {bookId}
+                        bookId={bookId}
                     />
                 ) : (
                     <BookForm handleAddBookLog={handleAddBookLog} handleUpdateBookLog={handleUpdateBookLog} book={book} collections={collections} />
