@@ -6,7 +6,6 @@ import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
 import BookDetails from './components/BookDetails/BookDetails';
-import Collections from './components/Collections/Collections';
 import CollectionDetails from './components/CollectionDetails/CollectionDetails';
 import CollectionForm from './components/CollectionForm/CollectionForm';
 
@@ -68,10 +67,6 @@ function App() {
             <Route
               path="/books/:bookId/bookLog/:bookLogId/edit"
               element={<BookDetails />}
-            />
-            <Route
-              path="/collections"
-              element={<Collections collections={collections} />}
             />
             <Route
               path="/collections/new"
