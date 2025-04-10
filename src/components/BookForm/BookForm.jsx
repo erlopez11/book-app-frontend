@@ -43,7 +43,7 @@ const BookForm = (props) => {
       setCollections(response);
     };
     fetchCollections();
-  });
+  }, []);
 
   return (
     <>
