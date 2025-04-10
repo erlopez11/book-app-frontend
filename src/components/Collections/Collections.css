@@ -23,7 +23,7 @@
   border-radius: 8px;
   overflow: hidden;
   transition: transform 0.3s ease;
-  background-color: white;
+  background-color: #333;
   height: 100%;
 }
 
@@ -38,15 +38,10 @@
   height: 100%;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background-color: white;
+  background-color: #333;
   cursor: pointer;
-}
-
-.collection-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .collection-card-image {
@@ -70,11 +65,11 @@
 .thumbnail {
   overflow: hidden;
   border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f5f5f5;
+  background-color: #242424;
 }
 
 .thumbnail img {
@@ -96,21 +91,21 @@
 .collection-title {
   margin: 0 0 10px 0;
   font-size: 18px;
-  color: #333;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 
 .collection-book-count {
   margin: 0;
   font-size: 14px;
-  color: #888;
+  color: rgba(255, 255, 255, 0.6);
   font-style: italic;
 }
 
 .view-button {
   margin: 0 auto 15px auto;
   padding: 8px 12px;
-  background-color: #4a90e2;
+  background-color: #646cff;
   color: white;
   border: none;
   border-radius: 4px;
@@ -122,12 +117,12 @@
 }
 
 .view-button:hover {
-  background-color: #3a7bc8;
+  background-color: #535bf2;
 }
 
 /* Add Collection Card */
 .add-collection-card {
-  background-color: #DAE7FC; 
+  background-color: #333333; 
   border: none;
   box-shadow: none; /* Remove shadow */
 }
@@ -137,10 +132,15 @@
 }
 
 .add-collection-card .collection-title {
-  color: #3A7BC8;
+  color: #646cff;
   font-weight: 700;
   margin: 0;
   font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+.add-collection-card:hover .collection-title {
+  color: rgb(71, 78, 209);
 }
 
 .add-collection-content {
@@ -158,7 +158,7 @@
 }
 
 .error {
-  color: #d32f2f;
+  color: #ff6b6b;
 }
 
 /* Responsive Design */
