@@ -61,6 +61,7 @@ const BookGrid = () => {
                 {books.map((book) => (
                   <div key={book.id} className="book-card-wrapper">
                     <BookCard
+                      id={book.id}
                       title={book.title}
                       author={book.author}
                       thumbnailUrl={book.thumbnailUrl}
