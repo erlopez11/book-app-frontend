@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import { useParams, useSearchParams } from 'react-router';
 import { getCollection } from '../../services/collectionService';
+import BookGrid from '../BookGrid/BookGrid';
 
 const CollectionForm = (props) => {
     const { collectionId } = useParams();
@@ -8,6 +9,8 @@ const CollectionForm = (props) => {
         title: '',
         description: '',
     });
+    const [searchParams] = useSearchParams();
+    const searchQuery = searchParams.get("q");
 
     const handleChange = (event) => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -41,34 +44,42 @@ const CollectionForm = (props) => {
 
     return (
         <main>
-            <h1>{collectionId ? 'Edit Collection' : 'Add New Collection'}</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor='title'>Collection Title:</label>
-                    <input
-                        type='text'
-                        name='title'
-                        id='title'
-                        value={formData.title}
-                        onChange={handleChange}
-                    />
-                </div>
-                <div>
-                    <label htmlFor='description'>Description</label>
-                    <textarea
-                        type='text'
-                        name='description'
-                        id='description'
-                        value={formData.description}
-                        onChange={handleChange}
-                    />
-                </div>
-                {collectionId ? (<>
-                    <button type='submit'>Update Collection</button>
-                </>) : (<>
-                    <button type='submit'>Add Collection</button>
-                </>)}
-            </form>
+            {searchQuery ? (
+                // If there's a search query, show the BookGrid component
+                <BookGrid />
+            ) : (
+                // Otherwise, show the collection form
+                <>
+                    <h1>{collectionId ? 'Edit Collection' : 'Add New Collection'}</h1>
+                    <form onSubmit={handleSubmit}>
+                        <div>
+                            <label htmlFor='title'>Collection Title:</label>
+                            <input
+                                type='text'
+                                name='title'
+                                id='title'
+                                value={formData.title}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor='description'>Description</label>
+                            <textarea
+                                type='text'
+                                name='description'
+                                id='description'
+                                value={formData.description}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        {collectionId ? (<>
+                            <button type='submit'>Update Collection</button>
+                        </>) : (<>
+                            <button type='submit'>Add Collection</button>
+                        </>)}
+                    </form>
+                </>
+            )}
         </main>
     );
 }

@@ -87,7 +87,7 @@ const BookGrid = () => {
             </>
           ) : (
             <div>
-              <h1 style={{ color: "black" }}>No books found :(</h1>
+              <h1 style={{ color: "rgba(255, 255, 255, 0.87)" }}>No books found :(</h1>
             </div>
           )}
         </>

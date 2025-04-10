@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import BookForm from "../BookForm/BookForm";
 import BookLog from "../BookLog/BookLog";
-import { useParams, useNavigate } from "react-router";
+import BookGrid from "../BookGrid/BookGrid";
+import { useParams, useNavigate, useSearchParams } from "react-router";
 import {
     show,
     createBookLog,
@@ -26,6 +27,8 @@ const BookDetails = () => {
     const [collections, setCollection] = useState([]);
     const { bookId, bookLogId } = useParams();
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const searchQuery = searchParams.get("q");
 
 
     const handleAddBookLog = async (bookFormData) => {
@@ -62,27 +65,35 @@ const BookDetails = () => {
 
     return (
         <main>
-            <section>
-                <img src={book.thumbnailUrl} />
-                <h1>{book.title}</h1>
-                <h2>{book.author}</h2>
-                <p>ID: {book.id}</p>
-                <p>Page Count: {book.numberOfPages}</p>
-                <div>
-                    {removeHTMLTags(book.description)}
-                </div>
-            </section>
-            <section>
-                {bookLog && !bookLogId ? (
-                    <BookLog
-                        bookLog={bookLog}
-                        handleDeleteBookLog={handleDeleteBookLog}
-                        bookId={bookId}
-                    />
-                ) : (
-                    <BookForm handleAddBookLog={handleAddBookLog} handleUpdateBookLog={handleUpdateBookLog} book={book} collections={collections} />
-                )}
-            </section>
+            {searchQuery ? (
+                // If there's a search query, show the BookGrid component
+                <BookGrid />
+            ) : (
+                // Otherwise, show the book details
+                <>
+                    <section>
+                        <img src={book.thumbnailUrl} />
+                        <h1>{book.title}</h1>
+                        <h2>{book.author}</h2>
+                        <p>ID: {book.id}</p>
+                        <p>Page Count: {book.numberOfPages}</p>
+                        <div>
+                            {removeHTMLTags(book.description)}
+                        </div>
+                    </section>
+                    <section>
+                        {bookLog && !bookLogId ? (
+                            <BookLog
+                                bookLog={bookLog}
+                                handleDeleteBookLog={handleDeleteBookLog}
+                                bookId={bookId}
+                            />
+                        ) : (
+                            <BookForm handleAddBookLog={handleAddBookLog} handleUpdateBookLog={handleUpdateBookLog} book={book} collections={collections} />
+                        )}
+                    </section>
+                </>
+            )}
         </main>
     );
 };
