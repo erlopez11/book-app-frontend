@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import BookCard from "../BookCard/BookCard";
 import "./BookGrid.css";
 import { getAllBooks } from "../../services/bookService";
+import { useSearchParams } from "react-router";
 
 const BookGrid = () => {
   const [books, setBooks] = useState([]);
@@ -9,26 +10,32 @@ const BookGrid = () => {
   const [error, setError] = useState(null);
   const [startIndex, setStartIndex] = useState(0);
   const maxResults = 12; // Number of books per page (3 rows, 4 columns)
-  const query = "award winning";
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("q")
+    ? searchParams.get("q")
+    : "award winning";
 
-  const fetchBooks = async (index) => {
-    try {
-      setLoading(true);
-      // Fetch books from Google Books API with pagination
-      const books = await getAllBooks(query, index, maxResults);
-      setBooks(books);
-      setError(null);
-    } catch (err) {
-      setError(err.message);
-      console.error("Error fetching books:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const fetchBooks = useCallback(
+    async (index) => {
+      try {
+        setLoading(true);
+        // Fetch books from Google Books API with pagination
+        const books = await getAllBooks(searchQuery, index, maxResults);
+        setBooks(books);
+        setError(null);
+      } catch (err) {
+        setError(err.message);
+        console.error("Error fetching books:", err);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [searchQuery]
+  );
 
   useEffect(() => {
     fetchBooks(startIndex);
-  }, [startIndex]);
+  }, [startIndex, fetchBooks]);
 
   const handlePrevious = () => {
     if (startIndex >= maxResults) {
