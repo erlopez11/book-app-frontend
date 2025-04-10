@@ -1,17 +1,30 @@
-import './BookCard.css';
+import { useNavigate } from "react-router";
+import "./BookCard.css";
 
-const BookCard = ({ title, author, thumbnailUrl }) => {
+const BookCard = ({ id, title, author, thumbnailUrl }) => {
+  const navigate = useNavigate();
+
   // Use placeholder image if thumbnailUrl is not available
-  const coverImage = thumbnailUrl ? thumbnailUrl : '/img/icons/coverPlaceholder.jpg';
-  
+  const coverImage = thumbnailUrl
+    ? thumbnailUrl
+    : "/img/icons/coverPlaceholder.jpg";
+
+  const navigateToBookDetails = () => {
+    navigate(`/books/${id}`);
+  };
+
   return (
-    <div className="book-card">
+    <div className="book-card" onClick={navigateToBookDetails}>
       <div className="book-card-image">
         <img src={coverImage} alt={`Cover of ${title}`} />
       </div>
       <div className="book-card-content">
-        <p className="book-title"><strong>Title:</strong> {title}</p>
-        <p className="book-author"><strong>Author:</strong> {author}</p>
+        <p className="book-title">
+          <strong>Title:</strong> {title}
+        </p>
+        <p className="book-author">
+          <strong>Author:</strong> {author}
+        </p>
       </div>
       <button className="add-button">Add to Collection</button>
     </div>
