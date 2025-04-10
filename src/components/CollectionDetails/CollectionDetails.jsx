@@ -12,9 +12,6 @@ const CollectionDetails = (props) => {
         const fetchCollection = async () => {
             const collectionData = await getCollection(collectionId);
             setCollection(collectionData);
-            const books = collectionData.users[0].bookLog;
-            const filteredBooks = books.filter((book) => (collectionData.title === book.collections))
-            setCollectionBooks(filteredBooks);
         };
         fetchCollection();
     }, [collectionId]);
