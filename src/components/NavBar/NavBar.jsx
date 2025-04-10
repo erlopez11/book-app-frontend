@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useNavigate, useSearchParams } from "react-router";
 import { UserContext } from "../../contexts/UserContext";
 import "./NavBar.css";
 
@@ -7,6 +7,7 @@ const NavBar = () => {
   const { user, setUser } = useContext(UserContext);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
@@ -16,7 +17,13 @@ const NavBar = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     console.log("Searching for:", searchQuery);
-    navigate(`/?q=${searchQuery}`);
+    navigate(`/`);
+    if (!searchQuery) {
+      searchParams.delete("q");
+    } else {
+      searchParams.set("q", searchQuery);
+      setSearchParams(searchParams);
+    }
   };
   return (
     <nav className="navbar">
