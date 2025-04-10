@@ -5,9 +5,9 @@ import { showBookLog } from '../../services/bookService';
 const BookForm = (props) => {
     const { bookId, bookLogId } = useParams();
     const [formData, setFormData] = useState({
-        book: props.book[0].title,
-        author: props.book[0].author,
-        thumbnailUrl: props.book[0].thumbnailUrl,
+        book: props.book.title,
+        author: props.book.author,
+        thumbnailUrl: props.book.thumbnailUrl,
         status: '',
         notes: '',
         rating: 'no rating',

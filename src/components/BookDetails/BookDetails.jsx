@@ -60,13 +60,13 @@ const BookDetails = () => {
     return (
         <main>
             <section>
-                <img src={book[0].thumbnailUrl} />
-                <h1>{book[0].title}</h1>
-                <h2>{book[0].author}</h2>
-                <p>ISBN: {book[0].isbn}</p>
-                <p>Page Count: {book[0].numberOfPages}</p>
+                <img src={book.thumbnailUrl} />
+                <h1>{book.title}</h1>
+                <h2>{book.author}</h2>
+                <p>ISBN: {book.isbn}</p>
+                <p>Page Count: {book.numberOfPages}</p>
                 <div>
-                    {removeHTMLTags(book[0].description)}
+                    {removeHTMLTags(book.description)}
                 </div>
             </section>
             <section>
