@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router';
-import { showBookLog } from '../../services/bookService';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router";
+import { showBookLog } from "../../services/bookService";
+import { getCollections } from "../../services/collectionService";
 
 const BookForm = (props) => {
     const { bookId, bookLogId } = useParams();
@@ -15,28 +16,36 @@ const BookForm = (props) => {
     });
     const navigate = useNavigate();
 
-    const handleChange = (event) => {
-        setFormData({ ...formData, [event.target.name]: event.target.value });
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (bookId && bookLogId) {
+      props.handleUpdateBookLog(bookId, bookLogId, formData);
+      navigate(`/books/${bookId}`);
+    } else {
+      props.handleAddBookLog(formData);
+    }
+  };
+
+  useEffect(() => {
+    const fetchBookLog = async () => {
+      const bookLogData = await showBookLog(bookId, bookLogId);
+      setFormData(bookLogData);
     };
+    if (bookId && bookLogId) fetchBookLog();
+  }, [bookId, bookLogId]);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        if (bookId && bookLogId) {
-            props.handleUpdateBookLog(bookId, bookLogId, formData);
-            navigate(`/books/${bookId}`);
-        } else {
-            props.handleAddBookLog(formData);
-        }
+  useEffect(() => {
+    const fetchCollections = async () => {
+      const response = await getCollections();
+      setCollections(response);
     };
-
-    useEffect(()=> {
-        const fetchBookLog = async () => {
-            const bookLogData = await showBookLog(bookId, bookLogId);
-            setFormData(bookLogData);
-        };
-        if (bookId && bookLogId) fetchBookLog();
-    }, [bookId, bookLogId]);
+    fetchCollections();
+  }, []);
 
     return (
         <>
