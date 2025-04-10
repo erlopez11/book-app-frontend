@@ -1,9 +1,10 @@
+import { useNavigate } from 'react-router';
 import './Collections.css';
 
 const AddCollectionCard = ({ onAddCollection }) => {
+  const navigate = useNavigate();
   const handleClick = () => {
-    // Just a placeholder - form will be implemented by Elainy
-    console.log('Add collection clicked');
+    navigate('/collections/new');
   };
 
   return (
