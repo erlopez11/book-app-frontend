@@ -1,13 +1,10 @@
 import './BookCard.css';
 
 const BookCard = ({ title, author, thumbnailUrl }) => {
-  // Use placeholder image if thumbnailUrl is not available
-  const coverImage = thumbnailUrl ? thumbnailUrl : '/img/icons/coverPlaceholder.jpg';
-  
   return (
     <div className="book-card">
       <div className="book-card-image">
-        <img src={coverImage} alt={`Cover of ${title}`} />
+        <img src={thumbnailUrl} alt={`Cover of ${title}`} />
       </div>
       <div className="book-card-content">
         <p className="book-title"><strong>Title:</strong> {title}</p>

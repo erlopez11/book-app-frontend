@@ -35,7 +35,7 @@ const BookGrid = () => {
         id: book.id,
         title: book.volumeInfo.title || 'Unknown Title',
         author: book.volumeInfo.authors ? book.volumeInfo.authors[0] : 'Unknown Author',
-        thumbnailUrl: book.volumeInfo.imageLinks?.thumbnail || ''
+        thumbnailUrl: book.volumeInfo.imageLinks?.thumbnail || 'https://via.placeholder.com/128x192?text=No+Cover'
       }));
       
       setBooks(formattedBooks);
