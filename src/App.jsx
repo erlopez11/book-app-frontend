@@ -6,6 +6,7 @@ import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
 import BookGrid from './components/BookGrid/BookGrid';
 import BookDetails from './components/BookDetails/BookDetails';
+import Collections from './components/Collections/Collections';
 
 import { UserContext } from './contexts/UserContext';
 
@@ -29,6 +30,14 @@ function App() {
             />
             <Route 
               path="/books/:bookId/bookLog/:bookLogId/edit"
+              element={<BookDetails />}
+            />
+            <Route
+              path="/collections"
+              element={<Collections />}
+            />
+            <Route
+              path="/collections/:collectionId"
               element={<BookDetails />}
             />
           </>
