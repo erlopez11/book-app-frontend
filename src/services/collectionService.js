@@ -132,14 +132,19 @@ export const deleteCollection = async (collectionId) => {
   }
 };
 
+//QUAN: This is what I have been using for adding the collection and the
+//addToBooks is invoked in handleAddBookLog  fn in book details
+
 // Add a book to a collection
-export const addBookToCollection = async (collectionId, bookId) => {
+export const addBookToCollection = async (collectionId, bookId, bookFormData) => {
   try {
     const token = localStorage.getItem('token');
     if (!token) throw new Error('No authentication token found');
 
     const collection = await getCollection(collectionId);
-    const updatedBooks = [...collection.books, bookId];
+    console.log(collection);
+    const updatedBooks = [...collection.books, bookFormData];
+    console.log(updatedBooks);
 
     return await updateCollection(collectionId, { books: updatedBooks });
   } catch (error) {
