@@ -14,38 +14,39 @@ const BookForm = (props) => {
         rating: 'no rating',
         collections: '',
     });
+    const [collections, setCollections] = useState([]);
     const navigate = useNavigate();
 
-  const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    if (bookId && bookLogId) {
-      props.handleUpdateBookLog(bookId, bookLogId, formData);
-      navigate(`/books/${bookId}`);
-    } else {
-      props.handleAddBookLog(formData);
-    }
-  };
-
-  useEffect(() => {
-    const fetchBookLog = async () => {
-      const bookLogData = await showBookLog(bookId, bookLogId);
-      setFormData(bookLogData);
+    const handleChange = (event) => {
+        setFormData({ ...formData, [event.target.name]: event.target.value });
     };
-    if (bookId && bookLogId) fetchBookLog();
-  }, [bookId, bookLogId]);
 
-  useEffect(() => {
-    const fetchCollections = async () => {
-      const response = await getCollections();
-      setCollections(response);
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        if (bookId && bookLogId) {
+            props.handleUpdateBookLog(bookId, bookLogId, formData);
+            navigate(`/books/${bookId}`);
+        } else {
+            props.handleAddBookLog(formData);
+        }
     };
-    fetchCollections();
-  }, []);
+
+    useEffect(() => {
+        const fetchBookLog = async () => {
+            const bookLogData = await showBookLog(bookId, bookLogId);
+            setFormData(bookLogData);
+        };
+        if (bookId && bookLogId) fetchBookLog();
+    }, [bookId, bookLogId]);
+
+    useEffect(() => {
+        const fetchCollections = async () => {
+            const response = await getCollections();
+            setCollections(response);
+        };
+        fetchCollections();
+    }, []);
 
     return (
         <>
@@ -80,6 +81,23 @@ const BookForm = (props) => {
                         value={formData.thumbnailUrl}
                         onChange={handleChange}
                     />
+                </div>
+                <div>
+                    <label htmlFor="status">Add To Collection :</label>
+                    <select
+                        required
+                        name="collection"
+                        id="collection"
+                        value={formData.collection}
+                        onChange={handleChange}
+                    >
+                        <option>Select Collection</option>
+                        {collections.map((collection) => (
+                            <option key={collection._id} value={collection.id}>
+                                {collection.title}
+                            </option>
+                        ))}
+                    </select>
                 </div>
                 <div>
                     <label htmlFor='status'>Reading Status:</label>
@@ -121,21 +139,6 @@ const BookForm = (props) => {
                         <option value="3">3</option>
                         <option value="4">4</option>
                         <option value="5">5</option>
-
-                    </select>
-                </div>
-                <div>
-                    <label htmlFor='collections'>Add to Collection:</label>
-                    <select
-                        required
-                        name='collections'
-                        id='collections'
-                        value={formData.collections}
-                        onChange={handleChange}
-                    >
-                        {props.collections.map((collection) => (
-                            <option key={collection._id} value={collection.title}>{collection.title}</option>
-                        ))}
 
                     </select>
                 </div>
