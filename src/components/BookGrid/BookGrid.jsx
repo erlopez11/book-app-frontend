@@ -9,12 +9,13 @@ const BookGrid = () => {
   const [error, setError] = useState(null);
   const [startIndex, setStartIndex] = useState(0);
   const maxResults = 12; // Number of books per page (3 rows, 4 columns)
+  const query = "award winning";
 
   const fetchBooks = async (index) => {
     try {
       setLoading(true);
       // Fetch books from Google Books API with pagination
-      const books = await getAllBooks(index, maxResults);
+      const books = await getAllBooks(query, index, maxResults);
       setBooks(books);
       setError(null);
     } catch (err) {

@@ -1,7 +1,7 @@
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/books`;
 
-const getAllBooks = async (startIndex, maxResults) => {
-  const params = new URLSearchParams({ startIndex, maxResults });
+const getAllBooks = async (query, startIndex, maxResults) => {
+  const params = new URLSearchParams({ startIndex, maxResults, q: query });
   try {
     const res = await fetch(`${BASE_URL}?${params.toString()}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
