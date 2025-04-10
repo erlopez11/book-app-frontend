@@ -16,7 +16,6 @@ const NavBar = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log("Searching for:", searchQuery);
     navigate(`/`);
     if (!searchQuery) {
       searchParams.delete("q");
