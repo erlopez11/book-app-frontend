@@ -1,10 +1,20 @@
+import { useNavigate } from "react-router";
 const Landing = () => {
-    return (
-        <main>
-            <h1>Hello, you are on the landing page for visitors.</h1>
-            <p>Sign up now, or sign in to see you super secret dashboard!</p>
-        </main>
-    );
+  const navigate = useNavigate();
+
+  const handleStartClick = () => {
+    navigate("/sign-up");
+  };
+  return (
+    <main>
+      <h1>Welcome to Bookly!</h1>
+      <p className="text-lg sm:text-xl text-gray-300 mb-8 max-w-xl">
+        Discover, search, and collect your favorite books.
+      </p>
+
+      <button onClick={handleStartClick}>Start your reading journey!</button>
+    </main>
+  );
 };
 
 export default Landing;
