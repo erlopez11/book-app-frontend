@@ -9,7 +9,7 @@ import {
     deleteBookLog,
     updateBookLog,
 } from "../../services/bookService";
-import { getCollections, addBookToCollection } from '../../services/collectionService';
+import { getCollections } from '../../services/collectionService';
 
 const removeHTMLTags = (string) => {
     try {
@@ -33,10 +33,6 @@ const BookDetails = () => {
 
     const handleAddBookLog = async (bookFormData) => {
         const newBookLog = await createBookLog(bookId, bookFormData);
-        const collectionId = newBookLog.collection;
-        const newCollectionBook = await addBookToCollection(collectionId, bookId, newBookLog);
-        console.log(typeof bookId);
-        console.log(newCollectionBook);
         setBookLog(newBookLog);
     };
 
