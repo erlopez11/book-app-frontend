@@ -6,9 +6,12 @@ const BookForm = (props) => {
     const { bookId, bookLogId } = useParams();
     const [formData, setFormData] = useState({
         book: props.book[0].title,
+        author: props.book[0].author,
+        thumbnailUrl: props.book[0].thumbnailUrl,
         status: '',
         notes: '',
         rating: 'no rating',
+        collections: '',
     });
     const navigate = useNavigate();
 
@@ -40,13 +43,32 @@ const BookForm = (props) => {
             <h2>Add Book:</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor='book'>Book:</label>
                     <input
                         readOnly
-                        type='text'
+                        type='hidden'
                         name='book'
                         id='book'
                         value={formData.book}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div>
+                    <input
+                        readOnly
+                        type='hidden'
+                        name='author'
+                        id='author'
+                        value={formData.author}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div>
+                    <input
+                        readOnly
+                        type='hidden'
+                        name='thumbnailUrl'
+                        id='thumbnailUrl'
+                        value={formData.thumbnailUrl}
                         onChange={handleChange}
                     />
                 </div>
@@ -90,6 +112,21 @@ const BookForm = (props) => {
                         <option value="3">3</option>
                         <option value="4">4</option>
                         <option value="5">5</option>
+
+                    </select>
+                </div>
+                <div>
+                    <label htmlFor='collections'>Add to Collection:</label>
+                    <select
+                        required
+                        name='collections'
+                        id='collections'
+                        value={formData.collections}
+                        onChange={handleChange}
+                    >
+                        {props.collections.map((collection) => (
+                            <option key={collection._id} value={collection.title}>{collection.title}</option>
+                        ))}
 
                     </select>
                 </div>
