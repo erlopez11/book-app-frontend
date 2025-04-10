@@ -16,7 +16,6 @@ const NavBar = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    navigate(`/`);
     if (!searchQuery) {
       searchParams.delete("q");
     } else {
@@ -30,6 +29,7 @@ const NavBar = () => {
         <Link to="/">
           <h1>Bookly</h1>
         </Link>
+        {user && <span className="user-greeting">Welcome, {user.username}! What are you reading today?</span>}
       </div>
       <ul className="navbar-links">
         {user ? (
@@ -56,14 +56,6 @@ const NavBar = () => {
                   />
                 </button>
               </form>
-            </li>
-            <li className="user-item">
-              {/* TODO: any action on this icon? */}
-              <img
-                src="/img/icons/user-solid.svg"
-                alt="User"
-                className="user-icon"
-              />
             </li>
             <li>
               <Link to="/" onClick={handleSignOut}>
