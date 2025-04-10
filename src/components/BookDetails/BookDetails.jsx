@@ -3,6 +3,7 @@ import BookForm from '../BookForm/BookForm';
 import BookLog from '../BookLog/BookLog';
 import { useParams, useNavigate } from 'react-router';
 import { showBook, createBookLog, deleteBookLog, updateBookLog } from '../../services/bookService';
+import { indexCollection } from '../../services/collectionService';
 
 const removeHTMLTags = (string) => {
     try {
@@ -17,10 +18,10 @@ const removeHTMLTags = (string) => {
 const BookDetails = () => {
     const [book, setBook] = useState(null);
     const [bookLog, setBookLog] = useState(null);
+    const [collections, setCollection] = useState([]);
     const[message, setMessage] = useState('');
     const { bookId, bookLogId } = useParams();
     const navigate = useNavigate();
-
 
     const handleAddBookLog = async (bookFormData) => {
         const newBookLog = await createBookLog(bookId, bookFormData);
@@ -45,7 +46,13 @@ const BookDetails = () => {
             const bookData = await showBook(bookId);
             setBook(bookData);
         };
+        const fetchCollections = async () => {
+            const collectionData = await indexCollection();
+            setCollection(collectionData);
+        };
+
         fetchBook();
+        fetchCollections();
     }, [bookId]);
 
     if (!book) return <main>Loading...</main>
@@ -71,7 +78,7 @@ const BookDetails = () => {
                         bookId = {bookId}
                     />
                 ) : (
-                    <BookForm handleAddBookLog={handleAddBookLog} handleUpdateBookLog={handleUpdateBookLog} book={book} />
+                    <BookForm handleAddBookLog={handleAddBookLog} handleUpdateBookLog={handleUpdateBookLog} book={book} collections={collections} />
                 )}
             </section>
         </main>
