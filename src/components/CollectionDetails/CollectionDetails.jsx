@@ -46,6 +46,7 @@ const CollectionDetails = (props) => {
                 title={book.title}
                 author={book.author}
                 thumbnailUrl={book.thumbnailUrl}
+                onClick={() => console.log("I go to books/bookid")}
               />
             ))}
           </section>
