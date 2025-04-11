@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams, useSearchParams } from "react-router";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router";
 import { getCollection } from "../../services/collectionService";
 import BookCard from "../BookCard/BookCard";
 import BookGrid from "../BookGrid/BookGrid";
@@ -9,6 +9,7 @@ const CollectionDetails = (props) => {
   const { collectionId } = useParams();
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("q");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCollection = async () => {
@@ -46,7 +47,7 @@ const CollectionDetails = (props) => {
                 title={book.title}
                 author={book.author}
                 thumbnailUrl={book.thumbnailUrl}
-                onClick={() => console.log("I go to books/bookid")}
+                onClick={() => navigate(`/books/${book.googleId}`)}
               />
             ))}
           </section>
