@@ -43,7 +43,7 @@ const CollectionDetails = (props) => {
             {collection.books.map((book) => (
               <BookCard
                 key={book._id}
-                title={book.book}
+                title={book.title}
                 author={book.author}
                 thumbnailUrl={book.thumbnailUrl}
               />
