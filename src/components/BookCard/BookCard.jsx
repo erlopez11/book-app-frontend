@@ -1,6 +1,13 @@
 import "./BookCard.css";
 
-const BookCard = ({ id, title, author, thumbnailUrl, onClick }) => {
+const BookCard = ({
+  id,
+  title,
+  author,
+  thumbnailUrl,
+  onClick,
+  shouldShowAddButton = true,
+}) => {
   // Use placeholder image if thumbnailUrl is not available
   const coverImage = thumbnailUrl
     ? thumbnailUrl
@@ -19,7 +26,9 @@ const BookCard = ({ id, title, author, thumbnailUrl, onClick }) => {
           <strong>Author:</strong> {author}
         </p>
       </div>
-      <button className="add-button">Add to Collection</button>
+      {shouldShowAddButton && (
+        <button className="add-button">Add to Collection</button>
+      )}
     </div>
   );
 };

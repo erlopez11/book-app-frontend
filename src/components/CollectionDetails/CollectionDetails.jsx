@@ -48,6 +48,7 @@ const CollectionDetails = (props) => {
                 author={book.author}
                 thumbnailUrl={book.thumbnailUrl}
                 onClick={() => navigate(`/books/${book.googleId}`)}
+                shouldShowAddButton={false}
               />
             ))}
           </section>
