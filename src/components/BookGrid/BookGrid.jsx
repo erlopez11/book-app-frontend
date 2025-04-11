@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import BookCard from "../BookCard/BookCard";
 import "./BookGrid.css";
 import { getAllBooks } from "../../services/bookService";
-import { useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 
 const BookGrid = () => {
   const [books, setBooks] = useState([]);
@@ -10,11 +10,15 @@ const BookGrid = () => {
   const [error, setError] = useState(null);
   const [startIndex, setStartIndex] = useState(0);
   const maxResults = 12; // Number of books per page (3 rows, 4 columns)
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("q")
     ? searchParams.get("q")
     : "award winning";
 
+  const navigateToBookDetails = (id) => {
+    navigate(`/books/${id}`);
+  };
   const fetchBooks = useCallback(
     async (index) => {
       try {
@@ -65,6 +69,7 @@ const BookGrid = () => {
                       title={book.title}
                       author={book.author}
                       thumbnailUrl={book.thumbnailUrl}
+                      onClick={() => navigateToBookDetails(book.id)}
                     />
                   </div>
                 ))}
@@ -87,7 +92,9 @@ const BookGrid = () => {
             </>
           ) : (
             <div>
-              <h1 style={{ color: "rgba(255, 255, 255, 0.87)" }}>No books found :(</h1>
+              <h1 style={{ color: "rgba(255, 255, 255, 0.87)" }}>
+                No books found :(
+              </h1>
             </div>
           )}
         </>
