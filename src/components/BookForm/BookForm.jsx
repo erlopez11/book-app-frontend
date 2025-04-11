@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { showBookLog } from "../../services/bookService";
-import { addBookToCollection } from "../../services/collectionService";
+import { addBookToCollection } from "../../services/collectionService"
+import './BookForm.css';
 
 const BookForm = (props) => {
   const { bookId, bookLogId } = useParams();
