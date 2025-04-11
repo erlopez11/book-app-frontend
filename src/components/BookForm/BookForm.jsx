@@ -14,9 +14,9 @@ const BookForm = (props) => {
     rating: "no rating",
     collection: "",
   });
+  const navigate = useNavigate();
   // Use collections from props if available, otherwise use empty array
   const collections = props.collections || [];
-  const navigate = useNavigate();
 
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });

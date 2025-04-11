@@ -10,7 +10,10 @@ import {
   updateBookLog,
   showBookLog,
 } from "../../services/bookService";
-import { getCollections } from "../../services/collectionService";
+import {
+  getCollections,
+  removeBookFromCollection,
+} from "../../services/collectionService";
 
 const removeHTMLTags = (string) => {
   try {
@@ -25,11 +28,15 @@ const removeHTMLTags = (string) => {
 const BookDetails = () => {
   const [book, setBook] = useState(null);
   const [bookLog, setBookLog] = useState(null);
-  const [collections, setCollection] = useState([]);
+  const [collections, setCollections] = useState([]);
   const { bookId, bookLogId } = useParams();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get("q");
+
+  const currentCollection = collections.find((collection) =>
+    collection.books.find((book) => book.googleId === bookId)
+  );
 
   const handleAddBookLog = async (bookFormData) => {
     const newBookLog = await createBookLog(bookId, bookFormData);
@@ -38,6 +45,9 @@ const BookDetails = () => {
 
   const handleDeleteBookLog = async () => {
     const deletedBookLog = await deleteBookLog(bookId, bookLog._id);
+    if (currentCollection) {
+      await removeBookFromCollection(currentCollection._id, bookId);
+    }
     setBookLog(null);
   };
 
@@ -54,7 +64,7 @@ const BookDetails = () => {
     };
     const fetchCollections = async () => {
       const collectionData = await getCollections();
-      setCollection(collectionData);
+      setCollections(collectionData);
     };
     const fetchBookLog = async () => {
       const bookLogData = await showBookLog(bookId);
