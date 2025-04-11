@@ -3,6 +3,7 @@ import { Link, useParams, useSearchParams } from 'react-router';
 import { getCollection } from '../../services/collectionService';
 import BookCard from '../BookCard/BookCard';
 import BookGrid from '../BookGrid/BookGrid';
+import './CollectionDetails.css';
 
 const CollectionDetails = (props) => {
     const [collection, setCollection] = useState(null);
@@ -29,26 +30,33 @@ const CollectionDetails = (props) => {
             ) : (
                 // Otherwise, show the collection details
                 <>
-                    <header>
-                        <h1>{collection.title}</h1>
-                        <p>{collection.description}</p>
+                    <div className='collection-details-container'>
+                        <header className='collection-details-header'>
+                            <div>
+                                <h1>{collection.title}</h1>
+                                <p>{collection.description}</p>
+                            </div>
+                            <div className='collection-details-btns'>
+                                <Link className='collection-link-btn' to={`/collections/${collectionId}/edit`}>Edit</Link>
 
-                        <Link to={`/collections/${collectionId}/edit`}>Edit</Link>
+                                <button className='collection-delete-btn' onClick={() => props.handleDeleteCollection(collectionId)}>Delete</button>
 
-                        <button onClick={() => props.handleDeleteCollection(collectionId)}>Delete</button>
+                            </div>
 
-                    </header>
+                        </header>
 
-                    <section>
-                        {collectionBooks.map((book) => (
-                            <BookCard
-                                key={book._id}
-                                title={book.book}
-                                author={book.author}
-                                thumbnailUrl={book.thumbnailUrl}
-                            />
-                        ))}
-                    </section>
+                        <section className='collection-books-grid'>
+                            {collectionBooks.map((book) => (
+                                <BookCard
+                                    key={book._id}
+                                    title={book.book}
+                                    author={book.author}
+                                    thumbnailUrl={book.thumbnailUrl}
+                                />
+                            ))}
+                        </section>
+
+                    </div>
                 </>
             )}
         </main>
