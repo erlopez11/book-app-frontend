@@ -10,6 +10,7 @@ import {
     updateBookLog,
 } from "../../services/bookService";
 import { getCollections } from '../../services/collectionService';
+import './BookDetails.css';
 
 const removeHTMLTags = (string) => {
     try {
@@ -64,24 +65,26 @@ const BookDetails = () => {
     if (!book) return <main>Loading...</main>;
 
     return (
-        <main>
+        <main className="book-details-container">
             {searchQuery ? (
                 // If there's a search query, show the BookGrid component
                 <BookGrid />
             ) : (
                 // Otherwise, show the book details
                 <>
-                    <section>
+                    <section className="book-details">
                         <img src={book.thumbnailUrl} />
-                        <h1>{book.title}</h1>
-                        <h2>{book.author}</h2>
-                        <p>ID: {book.id}</p>
-                        <p>Page Count: {book.numberOfPages}</p>
-                        <div>
-                            {removeHTMLTags(book.description)}
+                        <div className="book-details-text">
+                            <h1>{book.title}</h1>
+                            <h2>{book.author}</h2>
+                            <p><span className="bold-text">ID:</span> {book.id}</p>
+                            <p><span className="bold-text">Page Count:</span> {book.numberOfPages}</p>
+                            <div>
+                                {removeHTMLTags(book.description)}
+                            </div>
                         </div>
                     </section>
-                    <section>
+                    <section className="book-data">
                         {bookLog && !bookLogId ? (
                             <BookLog
                                 bookLog={bookLog}
