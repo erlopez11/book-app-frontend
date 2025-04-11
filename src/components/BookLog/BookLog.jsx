@@ -1,9 +1,10 @@
 import { Link } from "react-router";
 
 const BookLog = ({
-  bookLog: { book, status, notes, rating, _id, collections },
+  bookLog: { book, status, notes, rating, _id },
   handleDeleteBookLog,
   bookId,
+  currentCollection,
 }) => {
   return (
     <section>
@@ -11,7 +12,7 @@ const BookLog = ({
       <p>Status: {status}</p>
       <p>Notes: {notes}</p>
       <p>Rating: {rating}</p>
-      <p>Collection: {collections}</p>
+      <p>Collection: {currentCollection?.title}</p>
       <Link to={`/books/${bookId}/bookLog/${_id}/edit`}>Edit</Link>
       <button onClick={handleDeleteBookLog}>Delete</button>
     </section>

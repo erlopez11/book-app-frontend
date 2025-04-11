@@ -100,6 +100,7 @@ const BookDetails = () => {
                 bookLog={bookLog}
                 handleDeleteBookLog={handleDeleteBookLog}
                 bookId={bookId}
+                currentCollection={currentCollection}
               />
             ) : (
               <BookForm
