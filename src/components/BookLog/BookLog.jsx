@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import './BookLog.css';
 
 const BookLog = ({
-    bookLog: { book, status, notes, rating, _id },
+    bookLog: {status, notes, rating, _id },
     handleDeleteBookLog,
     bookId,
     currentCollection,
@@ -11,7 +11,7 @@ const BookLog = ({
 ) => {
     return (
         <section className='book-log-container'>
-            <h2>{book} Log </h2>
+            <h2>Log </h2>
             <div className='book-log-details'>
                 <div>
                     <p><span className='bold-text'>Reading Status:</span></p>
