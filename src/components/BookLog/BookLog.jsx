@@ -11,7 +11,7 @@ const BookLog = ({
 ) => {
     return (
         <section className='book-log-container'>
-            <h2>Log </h2>
+            <h2>Log</h2>
             <div className='book-log-details'>
                 <div>
                     <p><span className='bold-text'>Reading Status:</span></p>
