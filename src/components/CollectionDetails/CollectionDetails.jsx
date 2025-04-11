@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
-import { Link, useParams, useSearchParams } from 'react-router';
-import { getCollection } from '../../services/collectionService';
-import BookCard from '../BookCard/BookCard';
-import BookGrid from '../BookGrid/BookGrid';
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router";
+import { getCollection } from "../../services/collectionService";
+import BookCard from "../BookCard/BookCard";
+import BookGrid from "../BookGrid/BookGrid";
 import './CollectionDetails.css';
 
 const CollectionDetails = (props) => {
     const [collection, setCollection] = useState(null);
-    const [collectionBooks, setCollectionBooks] = useState([]);
     const { collectionId } = useParams();
     const [searchParams] = useSearchParams();
     const searchQuery = searchParams.get("q");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCollection = async () => {
@@ -20,7 +20,7 @@ const CollectionDetails = (props) => {
         fetchCollection();
     }, [collectionId]);
 
-    if (!collection) return <main>Loading...</main>
+    if (!collection) return <main>Loading...</main>;
 
     return (
         <main>
@@ -46,12 +46,14 @@ const CollectionDetails = (props) => {
                         </header>
 
                         <section className='collection-books-grid'>
-                            {collectionBooks.map((book) => (
+                            {collection.books.map((book) => (
                                 <BookCard
                                     key={book._id}
-                                    title={book.book}
+                                    title={book.title}
                                     author={book.author}
                                     thumbnailUrl={book.thumbnailUrl}
+                                    onClick={() => navigate(`/books/${book.googleId}`)}
+                                    shouldShowAddButton={false}
                                 />
                             ))}
                         </section>
@@ -61,6 +63,6 @@ const CollectionDetails = (props) => {
             )}
         </main>
     );
-}
+};
 
 export default CollectionDetails;

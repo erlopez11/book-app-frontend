@@ -1,7 +1,14 @@
-import { Link } from 'react-router';
+import { Link } from "react-router";
 import './BookLog.css';
 
-const BookLog = ({ bookLog: { book, status, notes, rating, _id, collection }, handleDeleteBookLog, bookId }) => {
+const BookLog = ({ 
+  bookLog: { book, status, notes, rating, _id}, 
+  handleDeleteBookLog, 
+  bookId,
+  currentCollection,
+},
+
+) => {
     return (
         <section className='book-log-container'>
             <h2>{book} Log </h2>
@@ -20,7 +27,7 @@ const BookLog = ({ bookLog: { book, status, notes, rating, _id, collection }, ha
                 </div>
                 <div>
                     <p><span className='bold-text'>Collection:</span></p>
-                    <p>{collection}</p>
+                    <p>{currentCollection?.title}</p>
                 </div>
 
                 <Link className="link-btn" to={`/books/${bookId}/bookLog/${_id}/edit`}>Edit</Link>

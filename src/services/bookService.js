@@ -39,9 +39,9 @@ const createBookLog = async (bookId, bookFormData) => {
   }
 };
 
-const showBookLog = async (bookId, bookLogId) => {
+const showBookLog = async (bookId) => {
   try {
-    const res = await fetch(`${BASE_URL}/${bookId}/bookLog/${bookLogId}`, {
+    const res = await fetch(`${BASE_URL}/${bookId}/bookLog`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
