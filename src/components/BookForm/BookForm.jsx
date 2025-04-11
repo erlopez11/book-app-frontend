@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { showBookLog } from "../../services/bookService";
 import { getCollections } from "../../services/collectionService";
+import './BookForm.css';
 
 const BookForm = (props) => {
     const { bookId, bookLogId } = useParams();
@@ -50,8 +51,9 @@ const BookForm = (props) => {
 
     return (
         <>
+        <div className="book-form-container">
             <h2>Add Book:</h2>
-            <form onSubmit={handleSubmit}>
+            <form className="book-form" onSubmit={handleSubmit}>
                 <div>
                     <input
                         readOnly
@@ -83,7 +85,7 @@ const BookForm = (props) => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="status">Add To Collection :</label>
+                    <label htmlFor="status"><span className="bold-text">Add To Collection</span> :</label>
                     <select
                         required
                         name="collection"
@@ -100,7 +102,7 @@ const BookForm = (props) => {
                     </select>
                 </div>
                 <div>
-                    <label htmlFor='status'>Reading Status:</label>
+                    <label htmlFor='status'><span className="bold-text">Reading Status:</span></label>
                     <select
                         required
                         name='status'
@@ -116,7 +118,7 @@ const BookForm = (props) => {
                     </select>
                 </div>
                 <div>
-                    <label htmlFor='notes'>Notes:</label>
+                    <label htmlFor='notes'><span className="bold-text">Notes:</span></label>
                     <textarea
                         name='notes'
                         id='notes'
@@ -125,7 +127,7 @@ const BookForm = (props) => {
                     />
                 </div>
                 <div>
-                    <label htmlFor='rating'>Rating:</label>
+                    <label htmlFor='rating'><span className="bold-text">Rating:</span></label>
                     <select
                         required
                         name='rating'
@@ -143,11 +145,12 @@ const BookForm = (props) => {
                     </select>
                 </div>
                 {bookLogId ? (
-                    <button type='submit'>Edit Log</button>
+                    <button className="book-form-btn" type='submit'>Edit Log</button>
                 ) : (
-                    <button type='submit'>Add {props.book.title}</button>
+                    <button className="book-form-btn" type='submit'>Add {props.book.title}</button>
                 )}
             </form>
+        </div>
         </>
     );
 };
