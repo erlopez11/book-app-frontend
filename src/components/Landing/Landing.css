@@ -1,0 +1,95 @@
+/* Main layout container */
+.landing-container {
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  min-height: 80vh;
+  max-height: 100vh;
+  padding: 4rem 2rem;
+  background-color: #1e1e1e;
+}
+
+.landing-content {
+  display: flex;
+  max-height: 80vh;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Text block */
+.landing-text {
+  flex: 1;
+  min-width: 300px;
+  max-width: 30vw;
+  color: white;
+}
+
+.landing-text h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.landing-text p {
+  font-size: 1.15rem;
+  color: #cccccc;
+  margin-bottom: 2rem;
+}
+
+/* Call-to-action button */
+.cta-button {
+  background-color: #646cff;
+  color: white;
+  font-weight: bold;
+  padding: 0.85rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(100, 108, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #535bf2;
+  transform: translateY(-2px);
+}
+
+/* Image block */
+.landing-image {
+  flex: 1;
+  min-width: 300px;
+  text-align: center;
+}
+
+.landing-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive stacking */
+@media (max-width: 768px) {
+  .landing-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .landing-text h1 {
+    font-size: 2.4rem;
+  }
+
+  .landing-text p {
+    font-size: 1rem;
+  }
+
+  .cta-button {
+    width: 100%;
+    max-width: 300px;
+  }
+}
