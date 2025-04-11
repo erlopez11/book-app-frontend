@@ -3,7 +3,7 @@
 
 ## 📒 Description
 
-[Bookly App](https://books-app-frontend.netlify.app)
+[Bookly App](https://bookly-book-tracker.netlify.app)
 
 **Tech Used** MongoDB, Express.js, React, Node.js, CSS
 
