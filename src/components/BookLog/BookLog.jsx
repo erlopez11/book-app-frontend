@@ -1,11 +1,11 @@
 import { Link } from "react-router";
 import './BookLog.css';
 
-const BookLog = ({ 
-  bookLog: { book, status, notes, rating, _id}, 
-  handleDeleteBookLog, 
-  bookId,
-  currentCollection,
+const BookLog = ({
+    bookLog: { book, status, notes, rating, _id },
+    handleDeleteBookLog,
+    bookId,
+    currentCollection,
 },
 
 ) => {
