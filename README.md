@@ -1,5 +1,4 @@
-![Bookly App](<img width="1318" alt="landing" src="https://github.com/user-attachments/assets/87885a2b-ca45-4494-875a-f3675a32b0b5" />
-)
+![Bookly App](https://github.com/user-attachments/assets/87885a2b-ca45-4494-875a-f3675a32b0b5")
 # 📚 Bookly
 
 ## 📒 Description
