@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { showBookLog } from "../../services/bookService";
-import { getCollections } from "../../services/collectionService";
+import { addBookToCollection } from "../../services/collectionService";
 
 const BookForm = (props) => {
     const { bookId, bookLogId } = useParams();
@@ -12,17 +12,28 @@ const BookForm = (props) => {
         status: '',
         notes: '',
         rating: 'no rating',
-        collections: '',
+        collection: '',
     });
-    const [collections, setCollections] = useState([]);
+    // Use collections from props if available, otherwise use empty array
+    const collections = props.collections || [];
     const navigate = useNavigate();
 
     const handleChange = (event) => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
+
+        // If a collection is selected, add the book to the collection
+        if (formData.collection && formData.collection !== 'Select Collection') {
+            try {
+                await addBookToCollection(formData.collection, props.book.id);
+                console.log('Book added to collection successfully');
+            } catch (error) {
+                console.error('Error adding book to collection:', error);
+            }
+        }
 
         if (bookId && bookLogId) {
             props.handleUpdateBookLog(bookId, bookLogId, formData);
@@ -39,14 +50,6 @@ const BookForm = (props) => {
         };
         if (bookId && bookLogId) fetchBookLog();
     }, [bookId, bookLogId]);
-
-    useEffect(() => {
-        const fetchCollections = async () => {
-            const response = await getCollections();
-            setCollections(response);
-        };
-        fetchCollections();
-    }, []);
 
     return (
         <>
@@ -93,7 +96,7 @@ const BookForm = (props) => {
                     >
                         <option>Select Collection</option>
                         {collections.map((collection) => (
-                            <option key={collection._id} value={collection.id}>
+                            <option key={collection._id} value={collection._id}>
                                 {collection.title}
                             </option>
                         ))}

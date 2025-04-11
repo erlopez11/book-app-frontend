@@ -138,10 +138,20 @@ export const addBookToCollection = async (collectionId, bookId) => {
     const token = localStorage.getItem('token');
     if (!token) throw new Error('No authentication token found');
 
-    const collection = await getCollection(collectionId);
-    const updatedBooks = [...collection.books, bookId];
+    const response = await fetch(`${BASE_URL}/${collectionId}/books/${bookId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    });
 
-    return await updateCollection(collectionId, { books: updatedBooks });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to add book to collection');
+    }
+
+    return await response.json();
   } catch (error) {
     console.error('Error adding book to collection:', error);
     throw error;
