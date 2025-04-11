@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router";
+import "./Landing.css";
+import booklyDash from "../../assets/booklyDash.png";
 const Landing = () => {
   const navigate = useNavigate();
 
@@ -6,13 +8,22 @@ const Landing = () => {
     navigate("/sign-up");
   };
   return (
-    <main>
-      <h1>Welcome to Bookly!</h1>
-      <p className="text-lg sm:text-xl text-gray-300 mb-8 max-w-xl">
-        Discover, search, and collect your favorite books.
-      </p>
-
-      <button onClick={handleStartClick}>Start your reading journey!</button>
+    <main className="landing-container">
+      <div className="landing-content">
+        <div className="landing-text">
+          <h1>Hello, reader!</h1>
+          <p>
+            Welcome to Bookly, your personalized digital bookshelf. Discover
+            books, track your progress, and build your collection.
+          </p>
+          <button className="cta-button" onClick={handleStartClick}>
+            Start your reading journey!
+          </button>
+        </div>
+        <div className="landing-image">
+          <img src={booklyDash} alt="Bookly dashboard" />
+        </div>
+      </div>
     </main>
   );
 };
