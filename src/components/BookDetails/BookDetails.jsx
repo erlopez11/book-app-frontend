@@ -82,42 +82,46 @@ const BookDetails = () => {
 
   if (!book) return <main>Loading...</main>;
 
-    return (
-        <main className="book-details-container">
-            {searchQuery ? (
-                // If there's a search query, show the BookGrid component
-                <BookGrid />
+  return (
+    <main className="book-details-container">
+      {searchQuery ? (
+        // If there's a search query, show the BookGrid component
+        <BookGrid />
+      ) : (
+        // Otherwise, show the book details
+        <>
+          <section className="book-details">
+            <img src={book.thumbnailUrl} />
+            <div className="book-details-text">
+              <h1>{book.title}</h1>
+              <h2>{book.author}</h2>
+              <p><span className="bold-text">ID:</span> {book.id}</p>
+              <p><span className="bold-text">Page Count:</span> {book.numberOfPages}</p>
+              <div>
+                {removeHTMLTags(book.description)}
+              </div>
+            </div>
+          </section>
+          <section className="book-data">
+            {bookLog && !bookLogId ? (
+              <BookLog
+                bookLog={bookLog}
+                handleDeleteBookLog={handleDeleteBookLog}
+                bookId={bookId}
+                currentCollection={currentCollection}
+              />
             ) : (
-                // Otherwise, show the book details
-                <>
-                    <section className="book-details">
-                        <img src={book.thumbnailUrl} />
-                        <div className="book-details-text">
-                            <h1>{book.title}</h1>
-                            <h2>{book.author}</h2>
-                            <p><span className="bold-text">ID:</span> {book.id}</p>
-                            <p><span className="bold-text">Page Count:</span> {book.numberOfPages}</p>
-                            <div>
-                                {removeHTMLTags(book.description)}
-                            </div>
-                        </div>
-                    </section>
-                    <section className="book-data">
-                        {bookLog && !bookLogId ? (
-                            <BookLog
-                                bookLog={bookLog}
-                                handleDeleteBookLog={handleDeleteBookLog}
-                                bookId={bookId}
-                                currentCollection={currentCollection}
-                            />
-                        ) : (
-                            <BookForm handleAddBookLog={handleAddBookLog} handleUpdateBookLog={handleUpdateBookLog} book={book} collections={collections} />
-                        )}
-                    </section>
-                </>
+              <BookForm
+                handleAddBookLog={handleAddBookLog}
+                handleUpdateBookLog={handleUpdateBookLog}
+                book={book}
+                collections={collections} />
             )}
-        </main>
-    );
+          </section>
+        </>
+      )}
+    </main>
+  );
 };
 
 export default BookDetails;
