@@ -9,7 +9,7 @@ const BookForm = (props) => {
     book: props.book.title,
     author: props.book.author,
     thumbnailUrl: props.book.thumbnailUrl,
-    status: "",
+    status: "want to read",
     notes: "",
     rating: "no rating",
     collection: "",
