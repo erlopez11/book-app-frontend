@@ -38,8 +38,15 @@ const BookDetails = () => {
     collection.books.find((book) => book.googleId === bookId)
   );
 
+  const fetchCollections = async () => {
+    const collectionData = await getCollections();
+    setCollections(collectionData);
+  };
+
   const handleAddBookLog = async (bookFormData) => {
     const newBookLog = await createBookLog(bookId, bookFormData);
+
+    fetchCollections();
     setBookLog(newBookLog);
   };
 
@@ -61,10 +68,6 @@ const BookDetails = () => {
     const fetchBook = async () => {
       const bookData = await show(bookId);
       setBook(bookData);
-    };
-    const fetchCollections = async () => {
-      const collectionData = await getCollections();
-      setCollections(collectionData);
     };
     const fetchBookLog = async () => {
       const bookLogData = await showBookLog(bookId);
