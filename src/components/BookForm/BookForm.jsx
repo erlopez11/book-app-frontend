@@ -6,7 +6,7 @@ import { addBookToCollection } from "../../services/collectionService";
 const BookForm = (props) => {
   const { bookId, bookLogId } = useParams();
   const [formData, setFormData] = useState({
-    book: props.book.title,
+    book: bookId,
     author: props.book.author,
     thumbnailUrl: props.book.thumbnailUrl,
     status: "want to read",
