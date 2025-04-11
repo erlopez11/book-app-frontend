@@ -1,4 +1,4 @@
-.signup-wrapper {
+.signin-wrapper {
   background-color: #1e1e1e;
   display: flex;
   justify-content: center;
@@ -6,7 +6,7 @@
   min-height: 93vh;
 }
 
-.signup-card {
+.signin-card {
   background-color: #ffffff;
   border-radius: 1rem;
   padding: 2.5rem;
@@ -16,26 +16,26 @@
   text-align: center;
 }
 
-.signup-card h1 {
+.signin-card h1 {
   font-size: 1.8rem;
   font-weight: 800;
   margin-bottom: 0.5rem;
   color: #1e1e1e;
 }
 
-.signup-card p {
+.signin-card p {
   font-size: 0.95rem;
   color: #333;
   margin-bottom: 1.5rem;
 }
 
-.signup-card form {
+.signin-card form {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
 }
 
-.signup-card label {
+.signin-card label {
   display: block;
   font-size: 0.9rem;
   font-weight: 600;
@@ -44,15 +44,15 @@
   color: #1e1e1e;
 }
 
-.signup-card input {
-  width: 92%;
-  padding: 0.75rem 1rem;
+.signin-card input {
+  width: 93%;
+  padding: 0.75rem;
   border: 2px solid #1e1e1e;
   border-radius: 0.5rem;
   font-size: 1rem;
 }
 
-.signup-card button {
+.signin-card button {
   padding: 0.75rem 1rem;
   font-size: 1rem;
   font-weight: bold;
@@ -63,27 +63,22 @@
   transition: 0.2s ease;
 }
 
-.signup-card button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.signup-card button:hover:enabled {
+.signin-card button:hover {
   background-color: #0d0b15;
 }
 
-.signup-footer {
+.signin-footer {
   margin-top: 1rem;
   font-size: 0.85rem;
   color: #1e1e1e;
 }
 
-.signup-footer a {
+.signin-footer a {
   color: #646cff;
   font-weight: 500;
   text-decoration: none;
 }
 
-.signup-footer a:hover {
+.signin-footer a:hover {
   text-decoration: underline;
 }
